@@ -17,9 +17,8 @@
 * Notes:
 *  (1) Compiled with MS Visual Studio 2017 Community (v141), using C
 *      language options.
-*  (2) Row entry numbers are delimited by the space character.
-*  (3) No attempt is made to validate the integer input. The atoi()
-*      function handles the under/overflow.
+*  (2) Row entry numbers are delimited by the non-digit characters.
+*  (3) No attempt is made to validate the integer input.
 *  (4) MS version uses secure strtok_s.
 *
 * Submitted in partial fulfillment of the requirements of PCC CIS-265.
@@ -27,116 +26,48 @@
 * Change Log:
 *   09/02/2017: Initial release. JME
 *************************************************************************/
-#include <assert.h> 
-#include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include <string.h>
 #include <ctype.h>
 
-// Definitions.
-#define ROWS               5  // Number of rows in array.
-#define COLUMNS            5  // Number of columns in array.
-#define MAX_CHARS          36 // (7 chars per x 5) + 1
+#define ROWS    3    // 5 works but 3 is used for a simple demonstration.
+#define COLUMNS ROWS // Must be a square 2D array.
+#define TOTAL   (ROWS*COLUMNS)
 
-// Attempt to get an input of 5 integers from user. Return true if successful.
-bool getRow(const unsigned int rowNum, int row[]) {
-	int count = 0;       // Count of elements in row.
-	bool retVal = false; // Function return value, ture = success (assumed false).
-
-	assert(row != NULL);
-	assert((rowNum > 0) && (rowNum <= ROWS));
-
-	// Reserve temporary space for the input string.
-	char *s = (char *)malloc(sizeof(char) * MAX_CHARS);
-	// Check valid.
-	if (s == NULL)
-		return retVal;
-
-	// Prompt and grab input.
-	fprintf(stdout, "Enter row %d: ", rowNum);
-	if (!fgets(s, MAX_CHARS, stdin)) {
-		free(s);
-		return retVal;
-	}
-	else if (!strchr(s, '\n')) {
-		// input too long, eat it.
-		while (fgets(s, MAX_CHARS, stdin) && !strchr(s, '\n'));
-		fputs("Too many characters input.\n", stdout);
-	}
-	else if (strlen(s) > 1) {
-		// Iterate string and convert to integer.
-		char *context = NULL;
-		char *delimiters = " ,/|-:\n";
-		//char *number = strtok_s(s, " \n", &context);
-		char *number = strtok_s(s, delimiters, &context);
-		while (number != NULL) {
-			row[count++] = atoi(number);
-			number = strtok_s(NULL, delimiters, &context);
-		}
-
-		// Confirm correct number of integers.
-		if (count > ROWS)
-			fputs("Too many numbers entered for this row.\n", stdout);
-		else if (count < ROWS)
-			fputs("Too few numbers entered for this row.\n", stdout);
-		else
-			retVal = true; // Success.
-	}
-
-	// Free memory and return.
-	free(s);
-	return retVal;
+// Recursive sum of row values.
+int sumRow(const int *a, int i) {
+	return (i -= 1) ? sumRow(a, i) + *(a + i) : *(a + i);
 }
 
-// Sum a row of 2d array.
-int sumRow(const int row[], const size_t n) {
-	int sum = 0;
-	
-	assert(n == ROWS);
-
-	// Itereate row, summing values.
-	for (int i = 0; i < (int)n; i++)
-		sum += row[i];
-	return sum;
+// Recursive sum of column values.
+int sumColumn(const int *a, const int column, int i) {
+	return (i -= COLUMNS) ? sumColumn(a, column, i) + *(a + column + i) : *(a + column + i);
 }
 
-// Sum column of 2d array.
-int sumColumn(const int array[ROWS][COLUMNS], const int column, const size_t n) {
-	int sum = 0;
-
-	assert((n == ROWS*COLUMNS) && (column >= 0) && (column < COLUMNS));
-
-	// Iterate column, summing values.
-	for (int i = 0; i < (int)n/ROWS; i++)
-		sum += array[i][column];
-	return sum;
-}
-
-// Program starts here.
 int main(void) {
-	int matrix[ROWS][COLUMNS];
+	int *a = (int[TOTAL]) { 0 }, i = 0, c;
 
-	// Display program instructions.
-	fputs("Enter 5 rows of 5 integers. Separate the integers by the space character.\n", stdout);
-
-	// Enter 5 rows of 5 columns.
-	for (int r = 0; r < ROWS; r++) {
-		if (getRow(r + 1, matrix[r]) == false) {
-			// We are highly intolerant of input error...
-			fputs("Program terminating.\n", stderr);
-			exit(EXIT_FAILURE);
-		}
+	printf("Enter %d integers: ", TOTAL);
+	while ((c = getchar()) != '\n' && i < TOTAL) {
+		if (isdigit(c))
+			 *(a + i) = *(a + i) * 10 + (c - '0');
+		else
+			i++;
 	}
 
-	// Total and display rows and columns.
-	fputs("Row totals: ", stdout);
-	for (int i = 0; i < ROWS; i++)
-		printf("%d ", sumRow(matrix[i], sizeof(matrix[i]) / sizeof(matrix[i][0])));
+	if (++i != TOTAL) {
+		printf("%d integers entered, %d are needed!\n", i, TOTAL);
+		return 1;
+	}
 
-	fputs("\nColumn totals: ", stdout);
-	for (int i = 0; i < COLUMNS; i++)
-		printf("%d ", sumColumn(matrix, i, sizeof(matrix) / sizeof(int)));
+#ifndef NDEBUG
+	for (i = 0; i < TOTAL; printf("%d\n", *(a + i++)));
+#endif
 
-	fputs("\n", stdout);
+	for (i = 0; i < ROWS; i++) {
+		printf("Row #%d sum = %d\n", i + 1, sumRow(a + i*COLUMNS, COLUMNS));
+		printf("Column #%d sum = %d\n", i + 1, sumColumn(a, i, TOTAL));
+	}
+
+	getchar();
 }
