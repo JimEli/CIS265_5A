@@ -1,0 +1,8 @@
+﻿  main.c
+c:\program files (x86)\windows kits\10\include\10.0.15063.0\ucrt\assert.h(1): warning C4001: nonstandard extension 'single line comment' was used
+c:\users\jim\documents\visual studio 2017\projects\cis265\cis265_5a\cis265_5a\main.c(143): warning C4710: 'int fprintf(FILE *const ,const char *const ,...)': function not inlined
+  c:\program files (x86)\windows kits\10\include\10.0.15063.0\ucrt\stdio.h(826): note: see declaration of 'fprintf'
+c:\users\jim\documents\visual studio 2017\projects\cis265\cis265_5a\cis265_5a\main.c(143): warning C4710: 'int printf(const char *const ,...)': function not inlined
+  c:\program files (x86)\windows kits\10\include\10.0.15063.0\ucrt\stdio.h(946): note: see declaration of 'printf'
+  CIS265_5A.vcxproj -> C:\Users\Jim\Documents\Visual Studio 2017\Projects\CIS265\CIS265_5A\Debug\CIS265_5A.exe
+  CIS265_5A.vcxproj -> C:\Users\Jim\Documents\Visual Studio 2017\Projects\CIS265\CIS265_5A\Debug\CIS265_5A.pdb (Partial PDB)

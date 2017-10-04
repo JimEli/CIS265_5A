@@ -1,0 +1,21 @@
+﻿  main.c
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.15063.0\ucrt\assert.h(1): warning C4001: nonstandard extension 'single line comment' was used
+main.c(143): warning C4710: 'int fprintf(FILE *const ,const char *const ,...)': function not inlined
+  C:\Program Files (x86)\Windows Kits\10\Include\10.0.15063.0\ucrt\stdio.h(826): note: see declaration of 'fprintf'
+main.c(143): warning C4710: 'int printf(const char *const ,...)': function not inlined
+  C:\Program Files (x86)\Windows Kits\10\Include\10.0.15063.0\ucrt\stdio.h(946): note: see declaration of 'printf'
+  Generating code
+c:\program files (x86)\windows kits\10\include\10.0.15063.0\ucrt\stdio.h(641): warning C4710: '__local_stdio_printf_options': function not inlined
+c:\program files (x86)\windows kits\10\include\10.0.15063.0\ucrt\stdio.h(641): warning C4710: '__local_stdio_printf_options': function not inlined
+c:\program files (x86)\windows kits\10\include\10.0.15063.0\ucrt\stdio.h(641): warning C4710: '__local_stdio_printf_options': function not inlined
+c:\users\jim\documents\visual studio 2017\projects\cis265\cis265_5a\cis265_5a\main.c(57): warning C4710: 'fprintf': function not inlined
+c:\users\jim\documents\visual studio 2017\projects\cis265\cis265_5a\cis265_5a\main.c(135): warning C4710: 'printf': function not inlined
+c:\users\jim\documents\visual studio 2017\projects\cis265\cis265_5a\cis265_5a\main.c(139): warning C4710: 'printf': function not inlined
+c:\users\jim\documents\visual studio 2017\projects\cis265\cis265_5a\cis265_5a\main.c(57): warning C4710: 'fprintf': function not inlined
+c:\users\jim\documents\visual studio 2017\projects\cis265\cis265_5a\cis265_5a\main.c(125): warning C4711: function 'getRow' selected for automatic inline expansion
+c:\users\jim\documents\visual studio 2017\projects\cis265\cis265_5a\cis265_5a\main.c(135): warning C4711: function 'sumRow' selected for automatic inline expansion
+c:\users\jim\documents\visual studio 2017\projects\cis265\cis265_5a\cis265_5a\main.c(139): warning C4711: function 'sumColumn' selected for automatic inline expansion
+  All 8 functions were compiled because no usable IPDB/IOBJ from previous compilation was found.
+  Finished generating code
+  CIS265_5A.vcxproj -> C:\Users\Jim\Documents\Visual Studio 2017\Projects\CIS265\CIS265_5A\Release\CIS265_5A.exe
+  CIS265_5A.vcxproj -> C:\Users\Jim\Documents\Visual Studio 2017\Projects\CIS265\CIS265_5A\Release\CIS265_5A.pdb (Full PDB)
